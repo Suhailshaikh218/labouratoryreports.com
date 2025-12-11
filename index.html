@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+<head>
+<meta charset="UTF-8">
+<title>Lab Receipt - Offline</title>
+
+
+
+<style>
+    body {
+        width: 280px;
+        font-family: Arial, sans-serif;
+        margin: 0 auto;
+        padding: 10px;
+        font-size: 18px;
+    }
+    h2 { text-align: center; margin: 5px 0; }
+    .center { text-align: center; }
+    .line { border-bottom: 1px dashed #000; margin: 8px 0; }
+    input {
+        width: 100%;
+        border: none;
+        border-bottom: 1px dotted #000;
+        margin: 3px 0;
+        padding: 6px;
+        font-size: 18px;
+        outline: none;
+    }
+    .label { font-weight: bold; margin-top: 8px; display: block; }
+    @media print {
+        button { display: none; }
+        body { margin: 0; }
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background: black;
+        color: white;
+        border: none;
+        margin-top: 10px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+</style>
+</head>
+
+<body>
+
+<div id="receipt">
+
+    <div class="line"></div>
+<br>
+<h1>LifeLine Dignostics</h1> 
+<h2> Report </h2>
+<h4>    Address : Peru Lashari <h4>
+
+<div class ></div>
+
+<label class="label">Patient Name :</label>
+<input type="text">
+
+<label class="label">Age :</label>
+ <input type="text"> 
+
+<label class="label">Contact No :</label>
+<input type="text">
+
+<div class="line"></div>
+
+<label class="label">Result :</label>
+<input type="text">
+
+<div class="line"></div>
+
+<label class="label">Consultant :</label>
+<input type="text">
+
+<label class="label">Technologist :</label>
+<input type="text">
+
+
+<label class="label">Remarks:</label>
+<input type="text">
+
+<p> Report Verified <br>
+Computer Generated Report, Signature Not Required</p>
+
+</div>
+
+<button onclick="window.print()">Print Receipt</button>
+<button onclick="savePDF()">Save as PDF (Offline)</button>
+
+<script src="html2pdf.bundle.js"></script>
+
+<script>
+function savePDF() {
+    var element = document.getElementById('receipt');
+    var opt = {
+        margin: 5,
+        filename: 'lab_receipt.pdf',
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+}
+</script>
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>
